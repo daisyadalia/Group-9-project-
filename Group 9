@@ -100,4 +100,110 @@ void displayMenu() {
     cout << "Enter your choice: ";
 }
 
+void addStudent() {
+    Student newStudent;
+    cout << "Enter firstname: ";
+    cin >> newStudent.firstname;
+    cout << "Enter surname: ";
+    cin >> newStudent.surname;
+    cout << "Enter gender (Male/Female): ";
+    cin >> newStudent.gender;
+    cout << "Enter age: ";
+    cin >> newStudent.age;
+    cout << "Enter BBIT group (1, 2, or 3): ";
+    cin >> newStudent.bbitGroup;
+
+    // Check if student already exists
+    auto it = find_if(students.begin(), students.end(), [&](const Student& s) {
+        return s.firstname == newStudent.firstname && s.surname == newStudent.surname;
+    });
+    if (it != students.end()) {
+        cout << "Student already exists!" << endl;
+        return;
+    }
+
+    // Assign activities to the student
+    assignActivity(newStudent);
+
+    // Add the student to the students vector
+    students.push_back(newStudent);
+
+    cout << "Student added successfully!" << endl;
+}
+
+void viewStudents() {
+    if (students.empty()) {
+        cout << "No students to display." << endl;
+        return;
+    }
+
+    cout << "===== Students =====" << endl;
+    cout << setw(20) << "Name" << setw(10) << "Gender" << setw(5) << "Age" << setw(15) << "Sport" << setw(20) << "Clubs/Societies" << endl;
+
+    for (const auto& student : students) {
+        cout << setw(20) << student.firstname + " " + student.surname << setw(10) << student.gender << setw(5) << student.age;
+
+        if (student.sportIndex != -1) {
+            cout << setw(15) << sports[student.sportIndex].name;
+        } else {
+            cout << setw(15) << "-";
+        }
+
+        if (!student.clubIndices.empty()) {
+            string clubs;
+            for (int clubIndex : student.clubIndices) {
+                clubs += clubsSocieties[clubIndex].name + ", ";
+            }
+            clubs = clubs.substr(0, clubs.size() - 2);  
+            cout << setw(20) << clubs;
+        } else {
+            cout << setw(20) << "-";
+        }
+
+        cout << endl;
+    }
+}
+
+void viewClubsSocieties() {
+    if (clubsSocieties.empty()) {
+        cout << "No clubs/societies available." << endl;
+        return;
+    }
+
+    cout << "===== Clubs/Societies =====" << endl;
+    displayActivities(clubsSocieties);
+}
+
+void viewSports() {
+    if (sports.empty()) {
+        cout << "No sports available." << endl;
+        return;
+    }
+
+    cout << "===== Sports =====" << endl;
+    displayActivities(sports);
+}
+
+void viewGroupedStudents() {
+    if (students.empty()) {
+        cout << "No students to display." << endl;
+        return;
+    }
+
+    cout << "===== Grouped Students =====" << endl;
+    cout << "BBIT Group 1:" << endl;
+    displayStudentsByGroup(1);
+    cout << endl << "BBIT Group 2:" << endl;
+    displayStudentsByGroup(2);
+    cout << endl << "BBIT Group 3:" << endl;
+    displayStudentsByGroup(3);
+}
+
+void saveData() {
+    ofstream outFile("students_data.csv");
+    if (!outFile) {
+        cerr << "Error opening file for writing." << endl;
+        return;
+    }
+
 
