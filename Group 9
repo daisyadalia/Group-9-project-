@@ -36,7 +36,6 @@ vector<Student> students;
 vector<Activity> sports;
 vector<Activity> clubsSocieties;
 
-
 void displayMenu();
 void addStudent();
 void viewStudents();
@@ -48,7 +47,9 @@ void assignActivity(Student& student);
 bool isMaleExceedPercentage(const Activity& activity, const Student& student, double maxPercentage);
 void displayActivities(const vector<Activity>& activities);
 void displayStudentsByGroup(int group);
-void loadData(); 
+void loadData();
+
+
 
 int main() {
     loadData();  
