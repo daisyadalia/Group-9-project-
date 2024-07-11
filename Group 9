@@ -129,6 +129,7 @@ void addStudent() {
     // Add the student to the students vector
     students.push_back(newStudent);
 
+
     cout << "Student added successfully!" << endl;
 }
 
