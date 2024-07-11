@@ -326,6 +326,7 @@ void displayStudentsByGroup(int group) {
     }
 }
 
+
 void loadData() {
     // Initialize sports
     sports = {
@@ -358,5 +359,4 @@ void loadData() {
 
     cout << "Initial data loaded successfully." << endl;
 }
-
 
