@@ -48,5 +48,56 @@ void assignActivity(Student& student);
 bool isMaleExceedPercentage(const Activity& activity, const Student& student, double maxPercentage);
 void displayActivities(const vector<Activity>& activities);
 void displayStudentsByGroup(int group);
-void loadData();  
+void loadData(); 
+
+int main() {
+    loadData();  
+
+    int choice;
+    do {
+        displayMenu();
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                addStudent();
+                break;
+            case 2:
+                viewStudents();
+                break;
+            case 3:
+                viewClubsSocieties();
+                break;
+            case 4:
+                viewSports();
+                break;
+            case 5:
+                viewGroupedStudents();
+                break;
+            case 6:
+                saveData();
+                break;
+            case 7:
+                cout << "Exiting program..." << endl;
+                break;
+            default:
+                cout << "Invalid choice. Please enter a valid option." << endl;
+        }
+    } while (choice != 7);
+
+    return 0;
+}
+
+void displayMenu() {
+    cout << "===== Co-curricular Activities Management =====" << endl;
+    cout << "1. Add Student" << endl;
+    cout << "2. View Students" << endl;
+    cout << "3. View Clubs/Societies" << endl;
+    cout << "4. View Sports" << endl;
+    cout << "5. View Grouped Students" << endl;
+    cout << "6. Save all Files" << endl;
+    cout << "7. Exit" << endl;
+    cout << "Enter your choice: ";
+}
+
 
