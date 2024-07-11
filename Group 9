@@ -1,1 +1,52 @@
+#include <iostream>
+#include <iomanip>
+#include <vector>
+#include <string>
+#include <algorithm> 
+#include <fstream>   
+using namespace std;
+
+
+const int MAX_STUDENTS_PER_GROUP = 50;
+const int MAX_STUDENTS_PER_SPORT = 20;
+const int MAX_MEMBERS_PER_CLUB = 60;
+const double MAX_PERCENTAGE_MALE_SPORT = 0.75;
+const double MAX_PERCENTAGE_MALE_CLUB = 0.5;
+
+
+struct Student {
+    string firstname;
+    string surname;
+    string gender;
+    int age;
+    int bbitGroup;
+    int sportIndex;           
+    vector<int> clubIndices;  
+};
+
+struct Activity {
+    string name;
+    int currentCapacity;
+    int maxCapacity;
+    vector<int> members;  
+};
+
+
+vector<Student> students;
+vector<Activity> sports;
+vector<Activity> clubsSocieties;
+
+
+void displayMenu();
+void addStudent();
+void viewStudents();
+void viewClubsSocieties();
+void viewSports();
+void viewGroupedStudents();
+void saveData();
+void assignActivity(Student& student);
+bool isMaleExceedPercentage(const Activity& activity, const Student& student, double maxPercentage);
+void displayActivities(const vector<Activity>& activities);
+void displayStudentsByGroup(int group);
+void loadData();  
 
