@@ -299,4 +299,71 @@ void assignActivity(Student& student) {
     }
 }
 
+bool isMaleExceedPercentage(const Activity& activity, const Student& student, double maxPercentage) {
+    if (student.gender == "Male") {
+        int currentMaleCount = count_if(activity.members.begin(), activity.members.end(), [&](int index) {
+            return students[index].gender == "Male";
+        });
+        double currentMalePercentage = static_cast<double>(currentMaleCount + 1) / (activity.currentCapacity + 1);  // +1 for the new student
+        return currentMalePercentage > maxPercentage;
+    }
+    return false;
+}
+
+void displayActivities(const vector<Activity>& activities) {
+    cout << setw(5) << "Index" << setw(20) << "Name" << setw(10) << "Capacity" << setw(15) << "Current Count" << endl;
+    for (int i = 0; i < activities.size(); ++i) {
+        cout << setw(5) << i << setw(20) << activities[i].name << setw(10) << activities[i].maxCapacity << setw(15) << activities[i].currentCapacity << endl;
+    }
+}
+
+void displayStudentsByGroup(int group) {
+    for (const auto& student : students) {
+        if (student.bbitGroup == group) {
+            cout << student.firstname + " " + student.surname << endl;
+        }
+    }
+}
+
+void loadData() {
+    // Initialize sports
+    sports = {
+            {"Rugby", 0, MAX_STUDENTS_PER_SPORT, {}},
+            {"Athletics", 0, MAX_STUDENTS_PER_SPORT, {}},
+            {"Swimming", 0, MAX_STUDENTS_PER_SPORT, {}},
+            {"Soccer", 0, MAX_STUDENTS_PER_SPORT, {}}
+    };
+
+    // Initialize clubs/societies
+    clubsSocieties = {
+            {"Journalism", 0, MAX_MEMBERS_PER_CLUB, {}},
+            {"Red Cross Society", 0, MAX_MEMBERS_PER_CLUB, {}},
+            {"AISEC", 0, MAX_MEMBERS_PER_CLUB, {}},
+            {"Business Club", 0, MAX_MEMBERS_PER_CLUB, {}},
+            {"Computer Club", 0, MAX_MEMBERS_PER_CLUB, {}}
+    };
+
+    // Sample student data
+    students = {
+            {"John", "Doe", "Male", 20, 1, 0, {0, 1, 2}},
+            {"Jane", "Smith", "Female", 19, 2, 1, {}},
+            {"Michael", "Brown", "Male", 21, 1, 2, {3}},
+            {"Emily", "Johnson", "Female", 20, 3, -1, {}}
+    };
+    
+   // Assign members to initial clubs/societies and sports
+    for (auto& student : students) {
+        if (student.sportIndex != -1) {
+            sports[student.sportIndex].members.push_back(&student - &students[0]);  
+            sports[student.sportIndex].currentCapacity++;
+        }
+        for (int clubIndex : student.clubIndices) {
+            clubsSocieties[clubIndex].members.push_back(&student - &students[0]);  
+            clubsSocieties[clubIndex].currentCapacity++;
+        }
+    }
+
+    cout << "Initial data loaded successfully." << endl;
+}
+
 
