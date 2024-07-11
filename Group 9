@@ -114,7 +114,7 @@ void addStudent() {
     cout << "Enter BBIT group (1, 2, or 3): ";
     cin >> newStudent.bbitGroup;
 
-    // Check if student already exists
+    
     auto it = find_if(students.begin(), students.end(), [&](const Student& s) {
         return s.firstname == newStudent.firstname && s.surname == newStudent.surname;
     });
@@ -123,7 +123,7 @@ void addStudent() {
         return;
     }
 
-    // Assign activities to the student
+    
     assignActivity(newStudent);
 
     // Add the student to the students vector
@@ -241,7 +241,7 @@ outFile << "Name,Gender,Age,BBIT Group,Sport,Clubs/Societies" << endl;
 void assignActivity(Student& student) {
     char choice;
 
-    // Assign sport
+    
     cout << "Do you want to participate in a sport? (y/n): ";
     cin >> choice;
     if (choice == 'y' || choice == 'Y') {
@@ -267,7 +267,7 @@ void assignActivity(Student& student) {
         }
     }
 
-    // Assign clubs/societies
+    
     if (student.sportIndex == -1 || student.clubIndices.size() < 3) {
         cout << "Do you want to join a club/society? (y/n): ";
         cin >> choice;
@@ -358,7 +358,7 @@ void loadData() {
             {"Soccer", 0, MAX_STUDENTS_PER_SPORT, {}}
     };
 
-    // Initialize clubs/societies
+    
     clubsSocieties = {
             {"Journalism", 0, MAX_MEMBERS_PER_CLUB, {}},
             {"Red Cross Society", 0, MAX_MEMBERS_PER_CLUB, {}},
@@ -367,7 +367,7 @@ void loadData() {
             {"Computer Club", 0, MAX_MEMBERS_PER_CLUB, {}}
     };
     
-   // Assign members to initial clubs/societies and sports
+   
     for (auto& student : students) {
         if (student.sportIndex != -1) {
             sports[student.sportIndex].members.push_back(&student - &students[0]);  
